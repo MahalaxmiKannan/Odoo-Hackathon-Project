@@ -1,19 +1,16 @@
-const dashboardRepository =
-  require(
-    "../repositories/dashboard.repository"
-  );
+const dashboardRepository = require("../repositories/dashboard.repository");
 
-const getDashboardStats =
-  async () => {
-    return await dashboardRepository.getDashboardStats();
-  };
+const getDashboard = async () => {
+  const stats = await dashboardRepository.getDashboardStats();
+  const recentAllocations =
+    await dashboardRepository.getRecentAllocations();
 
-const getRecentAllocations =
-  async () => {
-    return await dashboardRepository.getRecentAllocations();
+  return {
+    ...stats,
+    recentAllocations,
   };
+};
 
 module.exports = {
-  getDashboardStats,
-  getRecentAllocations,
+  getDashboard,
 };

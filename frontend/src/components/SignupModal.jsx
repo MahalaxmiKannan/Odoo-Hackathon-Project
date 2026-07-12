@@ -1,27 +1,45 @@
 import { useState } from "react";
+import { signupUser } from "../services/authService";
 
-const SignupModal = ({ close }) => {
+const SignupModal = ({ close, onSuccess }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Signup feature coming soon");
-    close();
+    setError("");
+    setLoading(true);
+    try {
+      const res = await signupUser(formData);
+      if (res?.success) {
+        // inform parent (Login) about success and pass email to prefill
+        onSuccess?.(formData.email);
+      } else {
+        setError(res?.message || "Signup failed");
+      }
+    } catch (err) {
+      setError(err?.response?.data?.message || "Unable to reach server");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
       <div className="bg-white p-6 rounded-lg w-96">
         <h2 className="text-xl font-bold mb-4">Create Account</h2>
+
+        {error && <div className="mb-3 text-red-600">{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <input
@@ -31,6 +49,7 @@ const SignupModal = ({ close }) => {
             value={formData.name}
             onChange={handleChange}
             className="border w-full p-2 rounded mb-3"
+            required
           />
 
           <input
@@ -40,6 +59,7 @@ const SignupModal = ({ close }) => {
             value={formData.email}
             onChange={handleChange}
             className="border w-full p-2 rounded mb-3"
+            required
           />
 
           <input
@@ -49,13 +69,15 @@ const SignupModal = ({ close }) => {
             value={formData.password}
             onChange={handleChange}
             className="border w-full p-2 rounded mb-3"
+            required
           />
 
           <button
             type="submit"
             className="bg-blue-600 text-white w-full p-2 rounded"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? "Creating..." : "Sign Up"}
           </button>
         </form>
 

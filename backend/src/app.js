@@ -23,5 +23,9 @@ app.use(
   "/api/dashboard",
   require("./routes/dashboard.routes")
 );
+app.use(
+  "/api/notifications",
+  require("./routes/notification.routes")
+);
 
 module.exports = app;

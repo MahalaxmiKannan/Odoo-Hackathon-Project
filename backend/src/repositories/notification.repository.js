@@ -1,9 +1,22 @@
 const pool = require("../config/db");
 
+// Get all notifications
+const getAllNotifications = async () => {
+  const [rows] = await pool.execute(`
+    SELECT
+      n.*,
+      u.name AS user_name
+    FROM notifications n
+    JOIN users u
+      ON n.user_id = u.id
+    ORDER BY n.created_at DESC
+  `);
+
+  return rows;
+};
+
 // Get notifications by user
-const getNotificationsByUser = async (
-  userId
-) => {
+const getNotificationsByUser = async (userId) => {
   const [rows] = await pool.execute(
     `
       SELECT *
@@ -32,9 +45,7 @@ const findById = async (id) => {
 };
 
 // Create notification
-const createNotification = async (
-  notification
-) => {
+const createNotification = async (notification) => {
   const [result] = await pool.execute(
     `
       INSERT INTO notifications
@@ -68,9 +79,7 @@ const markAsRead = async (id) => {
 };
 
 // Get unread count
-const getUnreadCount = async (
-  userId
-) => {
+const getUnreadCount = async (userId) => {
   const [[row]] = await pool.execute(
     `
       SELECT COUNT(*) AS count
@@ -85,6 +94,7 @@ const getUnreadCount = async (
 };
 
 module.exports = {
+  getAllNotifications,
   getNotificationsByUser,
   findById,
   createNotification,

@@ -93,6 +93,7 @@
 
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -103,12 +104,14 @@ import { loginUser } from "../services/authService";
 
 const Login = () => {
 
+    const navigate = useNavigate();
+
     const [values, setValues] = useState({
         email: "",
         password: ""
     });
 
-    const [errors, setErrors] = useState({});
+    const [errors] = useState({});
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -137,6 +140,7 @@ const Login = () => {
 
             if (response?.success) {
                 setMessage(response.message || "Login successful");
+                navigate("/dashboard");
             } else {
                 setMessage(response?.message || "Login failed");
             }

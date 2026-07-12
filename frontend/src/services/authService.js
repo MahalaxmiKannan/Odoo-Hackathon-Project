@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// Backend runs on port 5000 locally
-const API_BASE_URL = "http://localhost:5000/api";
+// Backend runs on port 5001 locally
+const API_BASE_URL = "http://localhost:5001/api";
 
 // Backend mounts auth routes under /api/auth
 export const loginUser = async (loginData) => {

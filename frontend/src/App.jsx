@@ -131,6 +131,9 @@ import Categories from "./pages/organization/Categories";
 import Employees from "./pages/organization/Employees";
 import Assets from "./pages/Assets";
 import ComingSoon from "./pages/ComingSoon";
+import Allocation from "./pages/Allocation";
+import Notifications from "./pages/Notifications";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
   return (
@@ -181,7 +184,7 @@ function App() {
           path="/allocation"
           element={
             <ProtectedRoute>
-              <ComingSoon title="Allocation & Transfer" />
+              <Allocation />
             </ProtectedRoute>
           }
         />
@@ -221,7 +224,9 @@ function App() {
           path="/notifications"
           element={
             <ProtectedRoute>
-              <ComingSoon title="Notifications" />
+              <ErrorBoundary>
+                <Notifications />
+              </ErrorBoundary>
             </ProtectedRoute>
           }
         />

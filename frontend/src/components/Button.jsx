@@ -1,17 +1,46 @@
-const Button = ({ text, type }) => {
+// const Button = ({ text, type }) => {
 
-    return (
+//     return (
 
-        <button
-            type={type}
-            className="bg-blue-600 text-white w-full p-2 rounded"
-        >
+//         <button
+//             type={type}
+//             className="bg-blue-600 text-white w-full p-2 rounded"
+//         >
 
-            {text}
+//             {text}
 
-        </button>
+//         </button>
 
-    );
+//     );
+
+// };
+
+// export default Button;
+
+const Button = ({ text, type = "button", onClick }) => {
+
+  return (
+
+    <button
+      type={type}
+      onClick={onClick}
+      className="
+      w-full
+      bg-blue-600
+      hover:bg-blue-700
+      text-white
+      py-3
+      rounded-xl
+      font-semibold
+      transition
+      "
+    >
+
+      {text}
+
+    </button>
+
+  );
 
 };
 

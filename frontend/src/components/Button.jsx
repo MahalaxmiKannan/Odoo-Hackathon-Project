@@ -4,8 +4,7 @@
 
 //         <button
 //             type={type}
-//             className="bg-blue-600 text-white w-full p-2 rounded"
-//         >
+//             className="bg-blue-600 text-white w-full p-2 rounded">
 
 //             {text}
 
@@ -17,31 +16,50 @@
 
 // export default Button;
 
-const Button = ({ text, type = "button", onClick }) => {
 
-  return (
+const Button = ({ text, type, onClick }) => {
 
-    <button
-      type={type}
-      onClick={onClick}
-      className="
-      w-full
-      bg-blue-600
-      hover:bg-blue-700
-      text-white
-      py-3
-      rounded-xl
-      font-semibold
-      transition
-      "
-    >
+    return (
 
-      {text}
+        <button
+            type={type}
+            onClick={onClick}
+            className="bg-blue-600 text-white w-full p-2 rounded hover:bg-blue-700"
+        >
+            {text}
+        </button>
 
-    </button>
-
-  );
+    );
 
 };
 
-export default Button;
+export default Button; 
+
+// const Button = ({ text, type = "button", onClick }) => {
+
+//   return (
+
+//     <button
+//       type={type}
+//       onClick={onClick}
+//       className="
+//       w-full
+//       bg-blue-600
+//       hover:bg-blue-700
+//       text-white
+//       py-3
+//       rounded-xl
+//       font-semibold
+//       transition
+//       "
+//     >
+
+//       {text}
+
+//     </button>
+
+//   );
+
+// };
+
+// export default Button;

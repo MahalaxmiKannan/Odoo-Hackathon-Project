@@ -13,3 +13,8 @@ export const forgotPassword = async (email) => {
   const response = await axios.post(`${API_BASE_URL}/auth/forgot-password`, { email });
   return response.data;
 };
+
+export const signupUser = async (signupData) => {
+  const response = await axios.post(`${API_BASE_URL}/auth/signup`, signupData);
+  return response.data;
+};

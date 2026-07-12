@@ -101,6 +101,9 @@ import Button from "../components/Button";
 import SignupModal from "../components/SignupModal";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";
 import { loginUser } from "../services/authService";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
@@ -118,6 +121,12 @@ const Login = () => {
     const [showSignup, setShowSignup] = useState(false);
     const [showForgot, setShowForgot] = useState(false);
 
+    const handleSignupSuccess = (email) => {
+        setShowSignup(false);
+        setMessage("Account created successfully. Please login.");
+        setValues((prev) => ({ ...prev, email: email || prev.email }));
+    };
+
     const handleChange = (e) => {
 
         setValues({
@@ -126,6 +135,9 @@ const Login = () => {
         });
 
     };
+
+    const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -139,7 +151,9 @@ const Login = () => {
             });
 
             if (response?.success) {
-                setMessage(response.message || "Login successful");
+                const token = response.data?.token || response.token;
+                const userObj = response.data?.user || response.user;
+                login(token, userObj);
                 navigate("/dashboard");
             } else {
                 setMessage(response?.message || "Login failed");
@@ -280,6 +294,7 @@ const Login = () => {
                 <SignupModal
 
                     close={() => setShowSignup(false)}
+                    onSuccess={handleSignupSuccess}
 
                 />
 

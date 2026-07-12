@@ -18,5 +18,4 @@ app.use("/api/auth", require("./routes/auth.routes"));
 app.get("/", (req, res) => {
   res.send("AssetFlow Backend Running");
 });
-
 module.exports = app;

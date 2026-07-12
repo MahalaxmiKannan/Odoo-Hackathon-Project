@@ -93,6 +93,7 @@
 
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -106,12 +107,14 @@ import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
+    const navigate = useNavigate();
+
     const [values, setValues] = useState({
         email: "",
         password: ""
     });
 
-    const [errors, setErrors] = useState({});
+    const [errors] = useState({});
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 

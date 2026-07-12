@@ -122,17 +122,111 @@
 // export default App
 
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Departments from "./pages/organization/Departments";
+import Categories from "./pages/organization/Categories";
+import Employees from "./pages/organization/Employees";
+import Assets from "./pages/Assets";
+import ComingSoon from "./pages/ComingSoon";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organization/departments"
+          element={
+            <ProtectedRoute>
+              <Departments />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organization/categories"
+          element={
+            <ProtectedRoute>
+              <Categories />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/organization/employees"
+          element={
+            <ProtectedRoute>
+              <Employees />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/assets"
+          element={
+            <ProtectedRoute>
+              <Assets />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/allocation"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Allocation & Transfer" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/booking"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Resource Booking" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/maintenance"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Maintenance" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/audit"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Audit" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reports"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Reports" />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/notifications"
+          element={
+            <ProtectedRoute>
+              <ComingSoon title="Notifications" />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/organization" element={<Navigate to="/organization/departments" replace />} />
+        <Route path="*" element={<ProtectedRoute><ComingSoon title="Page not found" /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

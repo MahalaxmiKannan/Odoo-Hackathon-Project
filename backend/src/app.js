@@ -19,5 +19,9 @@ app.use("/api/categories", require("./routes/category.routes"));
 app.use("/api/employees", require("./routes/employee.routes"));
 app.use("/api/assets", require("./routes/asset.routes"));
 app.use("/api/allocations", require("./routes/allocation.routes"));
+app.use(
+  "/api/dashboard",
+  require("./routes/dashboard.routes")
+);
 
 module.exports = app;

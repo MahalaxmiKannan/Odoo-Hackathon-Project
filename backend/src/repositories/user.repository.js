@@ -26,9 +26,19 @@ const createUser = async (user) => {
 };
 const findById = async (id) => {
   const [rows] = await pool.execute(
-    "SELECT * FROM users WHERE id = ?",
-    [id]
-  );
+  `SELECT
+      id,
+      name,
+      email,
+      role,
+      status,
+      department_id,
+      created_at,
+      updated_at
+   FROM users
+   WHERE id = ?`,
+  [id]
+);
 
   return rows[0];
 };

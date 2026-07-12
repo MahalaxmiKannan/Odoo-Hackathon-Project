@@ -92,7 +92,7 @@
 // export default Login;
 
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Input from "../components/Input";
@@ -101,13 +101,12 @@ import Button from "../components/Button";
 import SignupModal from "../components/SignupModal";
 import ForgotPasswordModal from "../components/ForgotPasswordModal";
 import { loginUser } from "../services/authService";
-import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
 
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const [values, setValues] = useState({
         email: "",
@@ -128,16 +127,11 @@ const Login = () => {
     };
 
     const handleChange = (e) => {
-
         setValues({
             ...values,
             [e.target.name]: e.target.value
         });
-
     };
-
-    const navigate = useNavigate();
-    const { login } = useContext(AuthContext);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
